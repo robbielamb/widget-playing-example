@@ -1,0 +1,18 @@
+{
+  "name": "widget-playing-example",
+  "sources": [
+    "src"
+  ],
+  "bs-dependencies": [
+    "bs-director",
+    "reason-react",
+    "bs-jest",
+    "widget-playing"
+  ],
+  "reason": {
+    "react-jsx": 2
+  },
+  "bsc-flags": [
+    "-bs-super-errors"
+  ]
+}

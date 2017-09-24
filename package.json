@@ -1,0 +1,24 @@
+{
+  "name": "widget-playing-example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta",
+    "bs-director": "^0.0.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "reason-scripts": "0.6.11",
+    "widget-playing": "git+https://github.com/robbielamb/widget-playing.git"
+  },
+  "scripts": {
+    "start": "FORCE_COLOR=true react-scripts start | cat -",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "prepare": "npm link bs-platform"
+  },
+  "devDependencies": {
+    "bs-jest": "^0.1.0",
+    "reason-react": "^0.2.4"
+  }
+}
