@@ -4,6 +4,8 @@ external logo : string = "./logo.svg" [@@bs.module];
 
 let se = ReasonReact.stringToElement;
 
+let exampleHighlight code => <Highlight languages=[|"html"|]> (se code) </Highlight>;
+
 module Example = {
   let component = ReasonReact.statelessComponent "Example";
   let make ::title (children: array ReasonReact.reactElement) => {
@@ -34,6 +36,9 @@ module AlertExample = {
           <Alert.Heading> (ReasonReact.stringToElement "Success") </Alert.Heading>
           <p> (ReasonReact.stringToElement message) </p>
         </Bootstrap.Alert.Auto>
+        (
+          exampleHighlight "<Bootstrap.Alert.Auto color=Bootstrap.Alert.Color.Primary>\n  <Alert.Heading> (ReasonReact.stringToElement \"Success\") </Alert.Heading>\n  <p> (ReasonReact.stringToElement \"This is an alert\") </p>\n</Bootstrap.Alert.Auto>"
+        )
       </Example>
   };
 };
@@ -45,6 +50,9 @@ module BadgesExample = {
     render: fun _self =>
       <Example title="Badges">
         <Bootstrap.Badge color=Bootstrap.Badge.Color.Primary> (se "Default") </Bootstrap.Badge>
+        (
+          exampleHighlight "<Bootstrap.Badge color=Bootstrap.Badge.Color.Primary>\n    (ReasonReact.stringToElement \"Default\")\n</Bootstrap.Badge>"
+        )
       </Example>
   };
 };
