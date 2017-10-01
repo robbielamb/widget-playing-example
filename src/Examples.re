@@ -28,12 +28,63 @@ module AlertExample = {
   let component = ReasonReact.statelessComponent "AlertExample";
   let make ::message _children => {
     ...component,
-    render: fun {state, reduce} =>
+    render: fun _self =>
       <Example title="Alerts">
         <Bootstrap.Alert.Auto color=Bootstrap.Alert.Color.Primary>
           <Alert.Heading> (ReasonReact.stringToElement "Success") </Alert.Heading>
           <p> (ReasonReact.stringToElement message) </p>
         </Bootstrap.Alert.Auto>
+      </Example>
+  };
+};
+
+module BadgesExample = {
+  let component = ReasonReact.statelessComponent "BadgesExample";
+  let make _children => {
+    ...component,
+    render: fun _self =>
+      <Example title="Badges">
+        <Bootstrap.Badge color=Bootstrap.Badge.Color.Primary> (se "Default") </Bootstrap.Badge>
+      </Example>
+  };
+};
+
+module BreadcrumbExample = {
+  let component = ReasonReact.statelessComponent "BreadcrumbExample";
+  let make _children => {
+    ...component,
+    render: fun _self =>
+      <Example title="Breadcrumbs">
+        <Bootstrap.BreadCrumb>
+          <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
+        </Bootstrap.BreadCrumb>
+        <Bootstrap.BreadCrumb>
+          <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
+          <Bootstrap.BreadCrumb.Item active=true> (se "more") </Bootstrap.BreadCrumb.Item>
+        </Bootstrap.BreadCrumb>
+      </Example>
+  };
+};
+
+module ButtonExample = {
+  let component = ReasonReact.statelessComponent "ButtonExample";
+  let make _children => {
+    ...component,
+    render: fun _self =>
+      <Example title="Buttons">
+        <Button color=Button.Color.Primary size=Button.Size.LG> (se "Primary") </Button>
+        (se " ")
+        <Button color=Button.Color.Secondary> (se "Secondary") </Button>
+        (se " ")
+        <Button color=Button.Color.Success> (se "Success") </Button>
+        (se " ")
+        <Button color=Button.Color.Info> (se "Info") </Button>
+        (se " ")
+        <Button color=Button.Color.Warning> (se "Warning") </Button>
+        (se " ")
+        <Button color=Button.Color.Danger> (se "Danger") </Button>
+        (se " ")
+        <Button color=Button.Color.Link> (se "Link") </Button>
       </Example>
   };
 };
@@ -124,39 +175,6 @@ module DropdownExample = {
             </Dropdown.Menu>
           </Dropdown>
         </Example>
-  };
-};
-
-module ModalExample = {
-  type action =
-    | Toggle;
-  type state = bool;
-  let toggle event => {
-    Js.log2 "Toggling modal" event;
-    Toggle
-  };
-  let component = ReasonReact.reducerComponent "ButtonExample";
-  let make _children => {
-    ...component,
-    initialState: fun () => false,
-    reducer: fun action state =>
-      switch action {
-      | Toggle => ReasonReact.Update (not state)
-      },
-    render: fun {state, reduce} =>
-      <Example title="Modal">
-        <Button color=Button.Color.Danger onClick=(reduce toggle)> (se "Launch Modal") </Button>
-        <Modal isOpen=state toggle=(reduce toggle)>
-          <Modal.Header toggle=(reduce toggle)> (se "Modal Header") </Modal.Header>
-          <Modal.Body> (se "This is the modal body where I can put stuff") </Modal.Body>
-          <Modal.Footer>
-            <Button color=Button.Color.Primary onClick=(reduce toggle)>
-              (se "Do Something")
-            </Button>
-            <Button color=Button.Color.Secondary onClick=(reduce toggle)> (se "Cancel") </Button>
-          </Modal.Footer>
-        </Modal>
-      </Example>
   };
 };
 
@@ -263,135 +281,35 @@ module FormExample = {
   };
 };
 
-module TableExample = {
-  let component = ReasonReact.statelessComponent "TableExample";
-  let make _children => {
-    ...component,
-    render: fun _self =>
-      <Example title="Table example">
-        <Table bordered=true striped=true hover=true>
-          <thead>
-            <tr>
-              <th> (se "Col 1") </th>
-              <th> (se "Col 2") </th>
-              <th> (se "Col 3") </th>
-              <th> (se "Col 4") </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td> (se "Row 1, col 1") </td>
-              <td> (se "Row 1, col 2") </td>
-              <td> (se "Row 1, col 3") </td>
-              <td> (se "Row 1, col 4") </td>
-            </tr>
-            <tr>
-              <td> (se "Row 2, col 1") </td>
-              <td> (se "Row 2, col 2") </td>
-              <td> (se "Row 2, col 3") </td>
-              <td> (se "Row 2, col 4") </td>
-            </tr>
-            <tr>
-              <td> (se "Row 3, col 1") </td>
-              <td> (se "Row 3, col 2") </td>
-              <td> (se "Row 3, col 3") </td>
-              <td> (se "Row 3, col 4") </td>
-            </tr>
-            <tr>
-              <td> (se "Row 4, col 1") </td>
-              <td> (se "Row 4, col 2") </td>
-              <td> (se "Row 4, col 3") </td>
-              <td> (se "Row 4, col 4") </td>
-            </tr>
-          </tbody>
-        </Table>
-      </Example>
+module ModalExample = {
+  type action =
+    | Toggle;
+  type state = bool;
+  let toggle event => {
+    Js.log2 "Toggling modal" event;
+    Toggle
   };
-};
-
-module ButtonExample = {
-  let component = ReasonReact.statelessComponent "ButtonExample";
+  let component = ReasonReact.reducerComponent "ButtonExample";
   let make _children => {
     ...component,
-    render: fun _self =>
-      <Example title="Buttons">
-        <Button color=Button.Color.Primary size=Button.Size.LG> (se "Primary") </Button>
-        (se " ")
-        <Button color=Button.Color.Secondary> (se "Secondary") </Button>
-        (se " ")
-        <Button color=Button.Color.Success> (se "Success") </Button>
-        (se " ")
-        <Button color=Button.Color.Info> (se "Info") </Button>
-        (se " ")
-        <Button color=Button.Color.Warning> (se "Warning") </Button>
-        (se " ")
-        <Button color=Button.Color.Danger> (se "Danger") </Button>
-        (se " ")
-        <Button color=Button.Color.Link> (se "Link") </Button>
-      </Example>
-  };
-};
-
-module BreadcrumbExample = {
-  let component = ReasonReact.statelessComponent "BreadcrumbExample";
-  let make _children => {
-    ...component,
-    render: fun _self =>
-      <Example title="Breadcrumbs">
-        <Bootstrap.BreadCrumb>
-          <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
-        </Bootstrap.BreadCrumb>
-        <Bootstrap.BreadCrumb>
-          <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
-          <Bootstrap.BreadCrumb.Item active=true> (se "more") </Bootstrap.BreadCrumb.Item>
-        </Bootstrap.BreadCrumb>
-      </Example>
-  };
-};
-
-module BadgesExample = {
-  let component = ReasonReact.statelessComponent "BadgesExample";
-  let make _children => {
-    ...component,
-    render: fun _self =>
-      <Example title="Badges">
-        <Bootstrap.Badge color=Bootstrap.Badge.Color.Primary> (se "Default") </Bootstrap.Badge>
-      </Example>
-  };
-};
-
-module ProgressExample = {
-  let component = ReasonReact.statelessComponent "ProgressExample";
-  let make _children => {
-    ...component,
-    render: fun _self =>
-      <Example title="Progress Bars">
-        <div className="text-center"> (se "0%") </div>
-        <Progress />
-        <div className="text-center"> (se "25%") </div>
-        <Progress value=25.0 />
-        <div className="text-center"> (se "50%") </div>
-        <Progress value=50.0 />
-        <div className="text-center"> (se "100%") </div>
-        <Progress value=100.0 />
-        <div className="text-center"> (se "73 of 108") </div>
-        <Progress value=73.0 max=108.0> (se "70/108") </Progress>
-        <div className="text-center"> (se "Multiple bars") </div>
-        <Progress multi=true>
-          <Progress bar=true value=15.0> (se "15%") </Progress>
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Success />
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Info />
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Warning />
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Danger />
-        </Progress>
-        <div className="text-center"> (se "Striped") </div>
-        <Progress value=50.0 color=Progress.BackgroundColor.Info striped=true>
-          (se "Striped")
-        </Progress>
-        <div className="text-center"> (se "Animated") </div>
-        <Progress value=50.0 color=Progress.BackgroundColor.Danger animated=true>
-          (se "Animated")
-        </Progress>
+    initialState: fun () => false,
+    reducer: fun action state =>
+      switch action {
+      | Toggle => ReasonReact.Update (not state)
+      },
+    render: fun {state, reduce} =>
+      <Example title="Modal">
+        <Button color=Button.Color.Danger onClick=(reduce toggle)> (se "Launch Modal") </Button>
+        <Modal isOpen=state toggle=(reduce toggle)>
+          <Modal.Header toggle=(reduce toggle)> (se "Modal Header") </Modal.Header>
+          <Modal.Body> (se "This is the modal body where I can put stuff") </Modal.Body>
+          <Modal.Footer>
+            <Button color=Button.Color.Primary onClick=(reduce toggle)>
+              (se "Do Something")
+            </Button>
+            <Button color=Button.Color.Secondary onClick=(reduce toggle)> (se "Cancel") </Button>
+          </Modal.Footer>
+        </Modal>
       </Example>
   };
 };
@@ -443,6 +361,88 @@ module PaginationExample = {
           </Pagination.Item>
           <Pagination.Item> <Pagination.Link next=true href="#" /> </Pagination.Item>
         </Pagination>
+      </Example>
+  };
+};
+
+module ProgressExample = {
+  let component = ReasonReact.statelessComponent "ProgressExample";
+  let make _children => {
+    ...component,
+    render: fun _self =>
+      <Example title="Progress Bars">
+        <div className="text-center"> (se "0%") </div>
+        <Progress />
+        <div className="text-center"> (se "25%") </div>
+        <Progress value=25.0 />
+        <div className="text-center"> (se "50%") </div>
+        <Progress value=50.0 />
+        <div className="text-center"> (se "100%") </div>
+        <Progress value=100.0 />
+        <div className="text-center"> (se "73 of 108") </div>
+        <Progress value=73.0 max=108.0> (se "70/108") </Progress>
+        <div className="text-center"> (se "Multiple bars") </div>
+        <Progress multi=true>
+          <Progress bar=true value=15.0> (se "15%") </Progress>
+          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Success />
+          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Info />
+          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Warning />
+          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Danger />
+        </Progress>
+        <div className="text-center"> (se "Striped") </div>
+        <Progress value=50.0 color=Progress.BackgroundColor.Info striped=true>
+          (se "Striped")
+        </Progress>
+        <div className="text-center"> (se "Animated") </div>
+        <Progress value=50.0 color=Progress.BackgroundColor.Danger animated=true>
+          (se "Animated")
+        </Progress>
+      </Example>
+  };
+};
+
+module TableExample = {
+  let component = ReasonReact.statelessComponent "TableExample";
+  let make _children => {
+    ...component,
+    render: fun _self =>
+      <Example title="Table example">
+        <Table bordered=true striped=true hover=true>
+          <thead>
+            <tr>
+              <th> (se "Col 1") </th>
+              <th> (se "Col 2") </th>
+              <th> (se "Col 3") </th>
+              <th> (se "Col 4") </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> (se "Row 1, col 1") </td>
+              <td> (se "Row 1, col 2") </td>
+              <td> (se "Row 1, col 3") </td>
+              <td> (se "Row 1, col 4") </td>
+            </tr>
+            <tr>
+              <td> (se "Row 2, col 1") </td>
+              <td> (se "Row 2, col 2") </td>
+              <td> (se "Row 2, col 3") </td>
+              <td> (se "Row 2, col 4") </td>
+            </tr>
+            <tr>
+              <td> (se "Row 3, col 1") </td>
+              <td> (se "Row 3, col 2") </td>
+              <td> (se "Row 3, col 3") </td>
+              <td> (se "Row 3, col 4") </td>
+            </tr>
+            <tr>
+              <td> (se "Row 4, col 1") </td>
+              <td> (se "Row 4, col 2") </td>
+              <td> (se "Row 4, col 3") </td>
+              <td> (se "Row 4, col 4") </td>
+            </tr>
+          </tbody>
+        </Table>
       </Example>
   };
 };

@@ -16,18 +16,18 @@ let handlers cb => {
 
 let router cb => DirectorRe.makeRouter (handlers cb); /* {"/": "home", "/alert":"alert", "/user": "user"}; */
 
-let elementForRoute route router =>
+let elementForRoute route =>
   switch route {
-  | Routes.AlertExampleRoute => <App.AlertExample message="This is an alert" />
-  | Routes.BadgesExampleRoute => <App.BadgesExample />
-  | Routes.BreadcrumbExampleRoute => <App.BreadcrumbExample />
-  | Routes.ButtonExampleRoute => <App.ButtonExample />
-  | Routes.CollapseExampleRoute => <App.CollapseExample />
-  | Routes.DropdownExampleRoute => <App.DropdownExample />
-  | Routes.FormExampleRoute => <App.FormExample />
-  | Routes.ModalExampleRoute => <App.ModalExample />
-  | Routes.PaginationExampleRoute => <App.PaginationExample />
-  | Routes.ProgressExampleRoute => <App.ProgressExample />
-  | Routes.TableExampleRoute => <App.TableExample />
+  | Routes.AlertExampleRoute => <Examples.AlertExample message="This is an alert" />
+  | Routes.BadgesExampleRoute => <Examples.BadgesExample />
+  | Routes.BreadcrumbExampleRoute => <Examples.BreadcrumbExample />
+  | Routes.ButtonExampleRoute => <Examples.ButtonExample />
+  | Routes.CollapseExampleRoute => <Examples.CollapseExample />
+  | Routes.DropdownExampleRoute => <Examples.DropdownExample />
+  | Routes.FormExampleRoute => <Examples.FormExample />
+  | Routes.ModalExampleRoute => <Examples.ModalExample />
+  | Routes.PaginationExampleRoute => <Examples.PaginationExample />
+  | Routes.ProgressExampleRoute => <Examples.ProgressExample />
+  | Routes.TableExampleRoute => <Examples.TableExample />
   };
 

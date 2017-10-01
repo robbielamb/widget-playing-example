@@ -47,7 +47,7 @@ let make _children => {
     switch self.state.router {
     | None => ReasonReact.nullElement /* Loading..... */
     | Some router =>
-      let element = Router.elementForRoute self.state.currentRoute router;
+      let element = Router.elementForRoute self.state.currentRoute;
       let navTo = navNav self.handle router self.state.currentRoute;
       <div>
         <Bootstrap.Navbar light=true>
