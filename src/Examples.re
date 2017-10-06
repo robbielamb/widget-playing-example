@@ -59,6 +59,15 @@ module BadgesExample = {
 
 module BreadcrumbExample = {
   let component = ReasonReact.statelessComponent "BreadcrumbExample";
+  let exampleCode = {js|
+  <Bootstrap.BreadCrumb>
+    <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
+  </Bootstrap.BreadCrumb>
+  <Bootstrap.BreadCrumb>
+    <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
+    <Bootstrap.BreadCrumb.Item active=true> (se "more") </Bootstrap.BreadCrumb.Item>
+  </Bootstrap.BreadCrumb>    
+    |js};
   let make _children => {
     ...component,
     render: fun _self =>
@@ -70,12 +79,31 @@ module BreadcrumbExample = {
           <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
           <Bootstrap.BreadCrumb.Item active=true> (se "more") </Bootstrap.BreadCrumb.Item>
         </Bootstrap.BreadCrumb>
+        (
+          exampleHighlight exampleCode
+        )
       </Example>
   };
 };
 
 module ButtonExample = {
   let component = ReasonReact.statelessComponent "ButtonExample";
+
+  let exampleCode = 
+{js|<Button color=Button.Color.Primary size=Button.Size.LG> (se "Primary") </Button>
+(se " ")
+<Button color=Button.Color.Secondary> (se "Secondary") </Button>
+(se " ")
+<Button color=Button.Color.Success> (se "Success") </Button>
+(se " ")
+<Button color=Button.Color.Info> (se "Info") </Button>
+(se " ")
+<Button color=Button.Color.Warning> (se "Warning") </Button>
+(se " ")
+<Button color=Button.Color.Danger> (se "Danger") </Button>
+(se " ")
+<Button color=Button.Color.Link> (se "Link") </Button>        
+|js}; 
   let make _children => {
     ...component,
     render: fun _self =>
@@ -93,11 +121,58 @@ module ButtonExample = {
         <Button color=Button.Color.Danger> (se "Danger") </Button>
         (se " ")
         <Button color=Button.Color.Link> (se "Link") </Button>
+        ( exampleHighlight exampleCode )
       </Example>
   };
 };
 
 module CollapseExample = {
+  module Collapser = {
+    type action =
+      | Toggle
+      | Opened
+      | Closed;
+    type state = {
+      isOpen: bool,
+      status: string
+    };
+    let component = ReasonReact.reducerComponent "Collapser";
+    let make _children => {
+      ...component,
+      initialState: fun () => {isOpen: true, status: "Open"},
+      reducer: fun action state =>
+        switch action {
+        | Toggle =>
+          ReasonReact.Update {
+            ...state,
+            isOpen: not state.isOpen,
+            status: not state.isOpen ? "Opening..." : "Collapsing..."
+          }
+        | Opened => ReasonReact.Update {...state, status: "Open"}
+        | Closed => ReasonReact.Update {...state, status: "Closed"}
+        },
+      render: fun {state, reduce} =>
+        <div>
+          <Button onClick=(reduce (fun _ => Toggle)) color=Button.Color.Primary>
+            (se "Collapse")
+          </Button>
+          <p> (se state.status) </p>
+          <Collapse
+            isOpen=state.isOpen
+            onOpened=(reduce (fun _ => Opened))
+            onClosed=(reduce (fun _ => Closed))>
+            <Card>
+              <Card.Header> (se "This is the card header") </Card.Header>
+              <Card.Body>
+                (se "THis is card and some more and some more and some more!")
+              </Card.Body>
+            </Card>
+          </Collapse>
+        </div>
+    };
+  };
+  let examplecode = {js|
+module Collapser = {
   type action =
     | Toggle
     | Opened
@@ -106,7 +181,7 @@ module CollapseExample = {
     isOpen: bool,
     status: string
   };
-  let component = ReasonReact.reducerComponent "CollapseExample";
+  let component = ReasonReact.reducerComponent "Collapser";
   let make _children => {
     ...component,
     initialState: fun () => {isOpen: true, status: "Open"},
@@ -122,7 +197,7 @@ module CollapseExample = {
       | Closed => ReasonReact.Update {...state, status: "Closed"}
       },
     render: fun {state, reduce} =>
-      <Example title="Collapse">
+      <div>
         <Button onClick=(reduce (fun _ => Toggle)) color=Button.Color.Primary>
           (se "Collapse")
         </Button>
@@ -133,10 +208,20 @@ module CollapseExample = {
           onClosed=(reduce (fun _ => Closed))>
           <Card>
             <Card.Header> (se "This is the card header") </Card.Header>
-            <Card.Body> (se "THis is card and some more and some more and some more!") </Card.Body>
+            <Card.Body>
+              (se "THis is card and some more and some more and some more!")
+            </Card.Body>
           </Card>
         </Collapse>
-      </Example>
+      </div>
+  };
+};
+  |js};
+  let component = ReasonReact.statelessComponent "CollapseExample";
+  let make _children => {
+    ...component,
+    render: fun {state, reduce} =>
+      <Example title="Collapse"> <Collapser /> (exampleHighlight examplecode) </Example>
   };
 };
 
