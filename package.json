@@ -5,9 +5,9 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "bs-director": "^0.0.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-fast-highlight": "^2.1.1",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-fast-highlight": "^2.2.0",
     "reason-scripts": "0.6.11",
     "widget-playing": "git+https://github.com/robbielamb/widget-playing.git"
   },

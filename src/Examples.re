@@ -1,4 +1,5 @@
-open Bootstrap;
+open WidgetPlaying;
+include WidgetPlaying.Bootstrap;
 
 external logo : string = "./logo.svg" [@@bs.module];
 
