@@ -9,4 +9,5 @@ type t =
   | ModalExampleRoute
   | PaginationExampleRoute
   | ProgressExampleRoute
-  | TableExampleRoute;
+  | TableExampleRoute
+  | TabExampleRoute;

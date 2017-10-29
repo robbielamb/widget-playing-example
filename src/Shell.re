@@ -76,6 +76,7 @@ let make = (_children) => {
                   (navTo(Routes.PaginationExampleRoute, "Pagination"))
                   (navTo(Routes.ProgressExampleRoute, "Progress Bars"))
                   (navTo(Routes.TableExampleRoute, "Tables"))
+                  (navTo(Routes.TabExampleRoute, "Tabs"))
                 </Bootstrap.Nav.Item>
               </Bootstrap.Nav>
             </Bootstrap.Layout.Col>

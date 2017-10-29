@@ -9,7 +9,8 @@ let handlers = (cb) => {
   "/modal": () => cb(Routes.ModalExampleRoute),
   "/pagination": () => cb(Routes.PaginationExampleRoute),
   "/progress": () => cb(Routes.ProgressExampleRoute),
-  "/tables": () => cb(Routes.TableExampleRoute)
+  "/tables": () => cb(Routes.TableExampleRoute), 
+  "/tabs": () => cb(Routes.TabExampleRoute)
 };
 
 let router = (cb) => DirectorRe.makeRouter(handlers(cb)); /* {"/": "home", "/alert":"alert", "/user": "user"}; */
@@ -27,4 +28,5 @@ let elementForRoute = (route) =>
   | Routes.PaginationExampleRoute => <Examples.PaginationExample />
   | Routes.ProgressExampleRoute => <Examples.ProgressExample />
   | Routes.TableExampleRoute => <Examples.TableExample />
+  | Routes.TabExampleRoute => <Examples.TabsExample />
   };

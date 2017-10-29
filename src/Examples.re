@@ -635,3 +635,43 @@ module TableExample = {
       </Example>
   };
 };
+
+module TabsExample = {
+  type state = {activeTab: int};
+  type action =
+    | SwitchTab(int);
+  let component = ReasonReact.reducerComponent("TabsExample");
+  let make = (_children) => {
+    ...component,
+    initialState: () => {activeTab: 1},
+    reducer: (action, _state) =>
+      switch action {
+      | SwitchTab(newTab) => ReasonReact.Update({activeTab: newTab})
+      },
+    render: ({state,reduce}) =>
+      <Example title="Tabs Example"> <div> <Bootstrap.Nav tabs=true > 
+      <Bootstrap.Nav.Item>
+        <Bootstrap.Nav.Link active=(state.activeTab==1) onClick=(reduce((_) => SwitchTab(1)))>
+        (se( "Item 1"))
+        </Bootstrap.Nav.Link>
+      </Bootstrap.Nav.Item>
+       <Bootstrap.Nav.Item>
+       <Bootstrap.Nav.Link active=(state.activeTab==2) onClick=(reduce((_) => SwitchTab(2)))>
+        (se( "Item 2"))
+        </Bootstrap.Nav.Link>
+   
+      </Bootstrap.Nav.Item>
+      </Bootstrap.Nav>
+   
+      <Bootstrap.Tab.Content>
+        <Bootstrap.Tab.Pane active=(state.activeTab==1)>
+          (se("Something here"))
+        </Bootstrap.Tab.Pane>
+
+         <Bootstrap.Tab.Pane active=(state.activeTab==2)>
+          (se("Something else "))
+        </Bootstrap.Tab.Pane>
+      </Bootstrap.Tab.Content>
+      </div> </Example>
+  };
+};

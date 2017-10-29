@@ -11,6 +11,7 @@ let pathFor = (route) =>
   | Routes.PaginationExampleRoute => "/pagination"
   | Routes.ProgressExampleRoute => "/progress"
   | Routes.TableExampleRoute => "/tables"
+  | Routes.TabExampleRoute => "/tabs"
   };
 
 let _to = (router, route) => {
