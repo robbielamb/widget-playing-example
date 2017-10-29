@@ -1,4 +1,4 @@
-let pathFor route =>
+let pathFor = (route) =>
   switch route {
   | Routes.AlertExampleRoute => "/alert"
   | Routes.BadgesExampleRoute => "/badges"
@@ -13,7 +13,7 @@ let pathFor route =>
   | Routes.TableExampleRoute => "/tables"
   };
 
-let _to router route => {
-  let path = pathFor route;
-  DirectorRe.setRoute router path
+let _to = (router, route) => {
+  let path = pathFor(route);
+  DirectorRe.setRoute(router, path)
 };

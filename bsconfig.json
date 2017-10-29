@@ -15,5 +15,6 @@
   "bsc-flags": [
     "-bs-super-errors"
   ],
-  "package-specs": ["es6"]
+  "package-specs": ["es6"],
+  "refmt": 3
 }

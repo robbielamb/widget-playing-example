@@ -5399,6 +5399,15 @@ react-dom@>=15.0.0, react-dom@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-dom@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+    prop-types "^15.5.10"
+
 react-error-overlay@^1.0.9:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-1.0.10.tgz#da8cd1eafac41afdca2a33792b23694ef6c528f1"
@@ -5410,9 +5419,9 @@ react-error-overlay@^1.0.9:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-fast-highlight@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/react-fast-highlight/-/react-fast-highlight-2.1.1.tgz#c6f627649e6ed8305dd3fdfd8daccb212c8ae10e"
+react-fast-highlight@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-fast-highlight/-/react-fast-highlight-2.2.0.tgz#afdbdfab9f3b8bd573b3e2d22b568d92cb93b42a"
   dependencies:
     classnames "^2.2.3"
     highlight.js "^9.0.0"
@@ -5432,6 +5441,16 @@ react-transition-group@^2.2.1:
 react@>=15.0.0, react@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
+  dependencies:
+    create-react-class "^15.6.0"
+    fbjs "^0.8.9"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+    prop-types "^15.5.10"
+
+react@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
   dependencies:
     create-react-class "^15.6.0"
     fbjs "^0.8.9"

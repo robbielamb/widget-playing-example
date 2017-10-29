@@ -1,22 +1,20 @@
-
-
-let handlers cb => {
-  "/alert": fun () => cb Routes.AlertExampleRoute,
-  "/badges" : fun () => cb Routes.BadgesExampleRoute,
-  "/buttons": fun () => cb Routes.ButtonExampleRoute,
-  "/breadcrumbs": fun () => cb Routes.BreadcrumbExampleRoute,
-  "/collapse": fun () => cb Routes.CollapseExampleRoute,
-  "/dropdown": fun () => cb Routes.DropdownExampleRoute,
-  "/forms": fun () => cb Routes.FormExampleRoute,
-  "/modal": fun () => cb Routes.ModalExampleRoute,
-  "/pagination": fun () => cb Routes.PaginationExampleRoute,
-  "/progress": fun () => cb Routes.ProgressExampleRoute,
-  "/tables": fun () => cb Routes.TableExampleRoute,
+let handlers = (cb) => {
+  "/alert": () => cb(Routes.AlertExampleRoute),
+  "/badges": () => cb(Routes.BadgesExampleRoute),
+  "/buttons": () => cb(Routes.ButtonExampleRoute),
+  "/breadcrumbs": () => cb(Routes.BreadcrumbExampleRoute),
+  "/collapse": () => cb(Routes.CollapseExampleRoute),
+  "/dropdown": () => cb(Routes.DropdownExampleRoute),
+  "/forms": () => cb(Routes.FormExampleRoute),
+  "/modal": () => cb(Routes.ModalExampleRoute),
+  "/pagination": () => cb(Routes.PaginationExampleRoute),
+  "/progress": () => cb(Routes.ProgressExampleRoute),
+  "/tables": () => cb(Routes.TableExampleRoute)
 };
 
-let router cb => DirectorRe.makeRouter (handlers cb); /* {"/": "home", "/alert":"alert", "/user": "user"}; */
+let router = (cb) => DirectorRe.makeRouter(handlers(cb)); /* {"/": "home", "/alert":"alert", "/user": "user"}; */
 
-let elementForRoute route =>
+let elementForRoute = (route) =>
   switch route {
   | Routes.AlertExampleRoute => <Examples.AlertExample message="This is an alert" />
   | Routes.BadgesExampleRoute => <Examples.BadgesExample />
@@ -30,4 +28,3 @@ let elementForRoute route =>
   | Routes.ProgressExampleRoute => <Examples.ProgressExample />
   | Routes.TableExampleRoute => <Examples.TableExample />
   };
-
