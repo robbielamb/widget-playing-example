@@ -5,8 +5,8 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "bs-director": "^0.0.4",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
+    "react": ">=15.0.0 || >=16.0.0",
+    "react-dom": ">=15.0.0 || >=16.0.0",
     "react-fast-highlight": "^2.2.0",
     "reason-scripts": "0.6.11",
     "widget-playing": "git+https://github.com/robbielamb/widget-playing.git"
@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "bs-jest": "^0.1.0",
-    "reason-react": "^0.2.4"
+    "reason-react": "^0.3.0"
   }
 }

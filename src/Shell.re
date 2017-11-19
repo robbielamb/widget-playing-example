@@ -52,7 +52,7 @@ let make = (_children) => {
       let element = Router.elementForRoute(self.state.currentRoute);
       let navTo = navNav(self.handle, router, self.state.currentRoute);
       <div>
-        <Bootstrap.Navbar light=true>
+        <Bootstrap.Navbar light=false color=Bootstrap.Colors.Background.Dark>
           <Bootstrap.Navbar.Brand>
             (ReasonReact.stringToElement("Widget Play"))
           </Bootstrap.Navbar.Brand>

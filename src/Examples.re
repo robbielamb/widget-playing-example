@@ -34,7 +34,7 @@ module AlertExample = {
     ...component,
     render: (_self) =>
       <Example title="Alerts">
-        <Bootstrap.Alert.Auto color=Bootstrap.Alert.Color.Primary>
+        <Bootstrap.Alert.Auto color=Bootstrap.Colors.Color.Primary>
           <Alert.Heading> (ReasonReact.stringToElement("Success")) </Alert.Heading>
           <p> (ReasonReact.stringToElement(message)) </p>
         </Bootstrap.Alert.Auto>
@@ -53,7 +53,7 @@ module BadgesExample = {
     ...component,
     render: (_self) =>
       <Example title="Badges">
-        <Bootstrap.Badge color=Bootstrap.Badge.Color.Primary> (se("Default")) </Bootstrap.Badge>
+        <Bootstrap.Badge color=Bootstrap.Colors.Color.Primary> (se("Default")) </Bootstrap.Badge>
         (
           exampleHighlight(
             "<Bootstrap.Badge color=Bootstrap.Badge.Color.Primary>\n    (ReasonReact.stringToElement \"Default\")\n</Bootstrap.Badge>"
@@ -146,7 +146,6 @@ module CollapseExample = {
         switch action {
         | Toggle =>
           ReasonReact.Update({
-            ...state,
             isOpen: ! state.isOpen,
             status: ! state.isOpen ? "Opening..." : "Collapsing..."
           })
@@ -220,7 +219,7 @@ module Collapser = {
   let component = ReasonReact.statelessComponent("CollapseExample");
   let make = (_children) => {
     ...component,
-    render: ({state, reduce}) =>
+    render: (_self) =>
       <Example title="Collapse"> <Collapser /> (exampleHighlight(examplecode)) </Example>
   };
 };
@@ -489,7 +488,7 @@ module ModalExample = {
     render: ({state, reduce}) =>
       <Example title="Modal">
         <Button color=Button.Color.Danger onClick=(reduce(toggle))> (se("Launch Modal")) </Button>
-        <Modal isOpen=state toggle=(reduce(toggle))>
+        <Modal isOpen=state>
           <Modal.Header toggle=(reduce(toggle))> (se("Modal Header")) </Modal.Header>
           <Modal.Body> (se("This is the modal body where I can put stuff")) </Modal.Body>
           <Modal.Footer>
@@ -573,17 +572,17 @@ module ProgressExample = {
         <div className="text-center"> (se("Multiple bars")) </div>
         <Progress multi=true>
           <Progress bar=true value=15.0> (se("15%")) </Progress>
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Success />
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Info />
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Warning />
-          <Progress bar=true value=15.0 color=Progress.BackgroundColor.Danger />
+          <Progress bar=true value=15.0 color=Bootstrap.Colors.Background.Success />
+          <Progress bar=true value=15.0 color=Bootstrap.Colors.Background.Info />
+          <Progress bar=true value=15.0 color=Bootstrap.Colors.Background.Warning />
+          <Progress bar=true value=15.0 color=Bootstrap.Colors.Background.Danger />
         </Progress>
         <div className="text-center"> (se("Striped")) </div>
-        <Progress value=50.0 color=Progress.BackgroundColor.Info striped=true>
+        <Progress value=50.0 color=Bootstrap.Colors.Background.Info striped=true>
           (se("Striped"))
         </Progress>
         <div className="text-center"> (se("Animated")) </div>
-        <Progress value=50.0 color=Progress.BackgroundColor.Danger animated=true>
+        <Progress value=50.0 color=Bootstrap.Colors.Background.Danger animated=true>
           (se("Animated"))
         </Progress>
       </Example>
@@ -637,41 +636,44 @@ module TableExample = {
 };
 
 module TabsExample = {
-  type state = {activeTab: int};
+  type tabs =
+    | Tab1
+    | Tab2;
+  type state = {activeTab: tabs};
   type action =
-    | SwitchTab(int);
+    | SwitchTab(tabs);
   let component = ReasonReact.reducerComponent("TabsExample");
   let make = (_children) => {
     ...component,
-    initialState: () => {activeTab: 1},
+    initialState: () => {activeTab: Tab1},
     reducer: (action, _state) =>
       switch action {
       | SwitchTab(newTab) => ReasonReact.Update({activeTab: newTab})
       },
-    render: ({state,reduce}) =>
-      <Example title="Tabs Example"> <div> <Bootstrap.Nav tabs=true > 
-      <Bootstrap.Nav.Item>
-        <Bootstrap.Nav.Link active=(state.activeTab==1) onClick=(reduce((_) => SwitchTab(1)))>
-        (se( "Item 1"))
-        </Bootstrap.Nav.Link>
-      </Bootstrap.Nav.Item>
-       <Bootstrap.Nav.Item>
-       <Bootstrap.Nav.Link active=(state.activeTab==2) onClick=(reduce((_) => SwitchTab(2)))>
-        (se( "Item 2"))
-        </Bootstrap.Nav.Link>
-   
-      </Bootstrap.Nav.Item>
-      </Bootstrap.Nav>
-   
-      <Bootstrap.Tab.Content>
-        <Bootstrap.Tab.Pane active=(state.activeTab==1)>
-          (se("Something here"))
-        </Bootstrap.Tab.Pane>
-
-         <Bootstrap.Tab.Pane active=(state.activeTab==2)>
-          (se("Something else "))
-        </Bootstrap.Tab.Pane>
-      </Bootstrap.Tab.Content>
-      </div> </Example>
+    render: ({state, reduce}) => {
+      let panels = [|
+        Bootstrap.Tab.Pane.create(~id=Tab1, se("Something here")),
+        Bootstrap.Tab.Pane.create(~id=Tab2, se("Something else"))
+      |];
+      <Example title="Tabs Example">
+        <div>
+          <Bootstrap.Nav tabs=true>
+            <Bootstrap.Nav.Item>
+              <Bootstrap.Nav.Link
+                active=(state.activeTab == Tab1) onClick=(reduce((_) => SwitchTab(Tab1)))>
+                (se("Item 1"))
+              </Bootstrap.Nav.Link>
+            </Bootstrap.Nav.Item>
+            <Bootstrap.Nav.Item>
+              <Bootstrap.Nav.Link 
+                active=(state.activeTab == Tab2) onClick=(reduce((_) => SwitchTab(Tab2)))>
+                (se("Item 2"))
+              </Bootstrap.Nav.Link>
+            </Bootstrap.Nav.Item>
+          </Bootstrap.Nav>
+          <Bootstrap.Tab.Content active=state.activeTab> ...panels </Bootstrap.Tab.Content>
+        </div>
+      </Example>
+    }
   };
 };
