@@ -17,10 +17,10 @@ let router = (cb) => DirectorRe.makeRouter(handlers(cb)); /* {"/": "home", "/ale
 
 let elementForRoute = (route) =>
   switch route {
-  | Routes.AlertExampleRoute => <Examples.AlertExample message="This is an alert" />
-  | Routes.BadgesExampleRoute => <Examples.BadgesExample />
-  | Routes.BreadcrumbExampleRoute => <Examples.BreadcrumbExample />
-  | Routes.ButtonExampleRoute => <Examples.ButtonExample />
+  | Routes.AlertExampleRoute => <AlertExample message="This is an alert" />
+  | Routes.BadgesExampleRoute => <BadgesExample />
+  | Routes.BreadcrumbExampleRoute => <BreadcrumbExample />
+  | Routes.ButtonExampleRoute => <ButtonExample />
   | Routes.CollapseExampleRoute => <Examples.CollapseExample />
   | Routes.DropdownExampleRoute => <Examples.DropdownExample />
   | Routes.FormExampleRoute => <Examples.FormExample />

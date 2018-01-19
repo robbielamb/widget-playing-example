@@ -8,6 +8,8 @@ let se = ReasonReact.stringToElement;
 
 let exampleHighlight = (code) => <Highlight languages=[|"html"|]> (se(code)) </Highlight>;
 
+let highlight = exampleHighlight;
+
 module Example = {
   let component = ReasonReact.statelessComponent("Example");
   let make = (~title, children: array(ReasonReact.reactElement)) => {
@@ -18,113 +20,6 @@ module Example = {
       let col = ReasonReact.element(Layout.Col.make(children));
       <Layout.Row className="mb-4 border p-2"> col </Layout.Row>
     }
-  };
-};
-
-module AlertExample = {
-  type action =
-    | Toggle;
-  type state = bool;
-  let toggle = (event: ReactEventRe.Mouse.t) => {
-    Js.log(event);
-    Toggle
-  };
-  let component = ReasonReact.statelessComponent("AlertExample");
-  let make = (~message, _children) => {
-    ...component,
-    render: (_self) =>
-      <Example title="Alerts">
-        <Bootstrap.Alert.Auto color=Bootstrap.Colors.Color.Primary>
-          <Alert.Heading> (ReasonReact.stringToElement("Success")) </Alert.Heading>
-          <p> (ReasonReact.stringToElement(message)) </p>
-        </Bootstrap.Alert.Auto>
-        (
-          exampleHighlight(
-            "<Bootstrap.Alert.Auto color=Bootstrap.Alert.Color.Primary>\n  <Alert.Heading> (ReasonReact.stringToElement \"Success\") </Alert.Heading>\n  <p> (ReasonReact.stringToElement \"This is an alert\") </p>\n</Bootstrap.Alert.Auto>"
-          )
-        )
-      </Example>
-  };
-};
-
-module BadgesExample = {
-  let component = ReasonReact.statelessComponent("BadgesExample");
-  let make = (_children) => {
-    ...component,
-    render: (_self) =>
-      <Example title="Badges">
-        <Bootstrap.Badge color=Bootstrap.Colors.Color.Primary> (se("Default")) </Bootstrap.Badge>
-        (
-          exampleHighlight(
-            "<Bootstrap.Badge color=Bootstrap.Badge.Color.Primary>\n    (ReasonReact.stringToElement \"Default\")\n</Bootstrap.Badge>"
-          )
-        )
-      </Example>
-  };
-};
-
-module BreadcrumbExample = {
-  let component = ReasonReact.statelessComponent("BreadcrumbExample");
-  let exampleCode = {js|
-  <Bootstrap.BreadCrumb>
-    <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
-  </Bootstrap.BreadCrumb>
-  <Bootstrap.BreadCrumb>
-    <Bootstrap.BreadCrumb.Item> (se "home") </Bootstrap.BreadCrumb.Item>
-    <Bootstrap.BreadCrumb.Item active=true> (se "more") </Bootstrap.BreadCrumb.Item>
-  </Bootstrap.BreadCrumb>
-    |js};
-  let make = (_children) => {
-    ...component,
-    render: (_self) =>
-      <Example title="Breadcrumbs">
-        <Bootstrap.BreadCrumb>
-          <Bootstrap.BreadCrumb.Item> (se("home")) </Bootstrap.BreadCrumb.Item>
-        </Bootstrap.BreadCrumb>
-        <Bootstrap.BreadCrumb>
-          <Bootstrap.BreadCrumb.Item> (se("home")) </Bootstrap.BreadCrumb.Item>
-          <Bootstrap.BreadCrumb.Item active=true> (se("more")) </Bootstrap.BreadCrumb.Item>
-        </Bootstrap.BreadCrumb>
-        (exampleHighlight(exampleCode))
-      </Example>
-  };
-};
-
-module ButtonExample = {
-  let component = ReasonReact.statelessComponent("ButtonExample");
-  let exampleCode = {js|<Button color=Button.Color.Primary size=Button.Size.LG> (se "Primary") </Button>
-(se " ")
-<Button color=Button.Color.Secondary> (se "Secondary") </Button>
-(se " ")
-<Button color=Button.Color.Success> (se "Success") </Button>
-(se " ")
-<Button color=Button.Color.Info> (se "Info") </Button>
-(se " ")
-<Button color=Button.Color.Warning> (se "Warning") </Button>
-(se " ")
-<Button color=Button.Color.Danger> (se "Danger") </Button>
-(se " ")
-<Button color=Button.Color.Link> (se "Link") </Button>
-|js};
-  let make = (_children) => {
-    ...component,
-    render: (_self) =>
-      <Example title="Buttons">
-        <Button color=Button.Color.Primary size=Button.Size.LG> (se("Primary")) </Button>
-        (se(" "))
-        <Button color=Button.Color.Secondary> (se("Secondary")) </Button>
-        (se(" "))
-        <Button color=Button.Color.Success> (se("Success")) </Button>
-        (se(" "))
-        <Button color=Button.Color.Info> (se("Info")) </Button>
-        (se(" "))
-        <Button color=Button.Color.Warning> (se("Warning")) </Button>
-        (se(" "))
-        <Button color=Button.Color.Danger> (se("Danger")) </Button>
-        (se(" "))
-        <Button color=Button.Color.Link> (se("Link")) </Button>
-        (exampleHighlight(exampleCode))
-      </Example>
   };
 };
 
@@ -633,6 +528,7 @@ module TableExample = {
         </Table>
       </Example>
   };
+
 };
 
 module TabsExample = {
@@ -652,8 +548,8 @@ module TabsExample = {
       },
     render: ({state, reduce}) => {
       let panels = [|
-        Bootstrap.Tab.Pane.create(~id=Tab1, se("Something here")),
-        Bootstrap.Tab.Pane.create(~id=Tab2, se("Something else"))
+        Bootstrap.Tab.Pane.create(~tabId=Tab1, se("Something here")),
+        Bootstrap.Tab.Pane.create(~tabId=Tab2, se("Something else"))
       |];
       <Example title="Tabs Example">
         <div>
