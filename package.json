@@ -3,23 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.0.0-beta",
+    "bootstrap": "^4.0.0-beta.2",
     "bs-director": "^0.0.4",
-    "react": ">=15.0.0 || >=16.0.0",
-    "react-dom": ">=15.0.0 || >=16.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-fast-highlight": "^2.2.0",
-    "reason-scripts": "0.6.11",
     "widget-playing": "git+https://github.com/robbielamb/widget-playing.git"
   },
   "scripts": {
-    "start": "FORCE_COLOR=true react-scripts start | cat -",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "prepare": "npm link bs-platform"
+    "build": "bsb -make-world",
+    "clean": "bsb -clean-world",
+    "start": "webpack-dev-server",
+    "serve:js": "webpack --watch --progress --color --config webpack.config.js",
+    "watch:re": "bsb -make-world -w",
+    "serve": "concurrently --kill-others --kill-others-on-fail \"bsb -make-world -w\" \"webpack-dev-server\" "
+
   },
   "devDependencies": {
     "bs-jest": "^0.1.0",
-    "reason-react": "^0.3.0"
+    "bs-platform": "^2.1.0",
+    "concurrently": "^3.5.1",
+    "copy-webpack-plugin": "^4.3.1",
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.7.2",
+    "reason-react": "^0.3.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0",
+    "webpack-merge": "^4.1.1"
   }
 }

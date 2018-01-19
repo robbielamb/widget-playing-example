@@ -4,8 +4,8 @@
 
 [%bs.raw {|require('highlight.js/styles/solarized-dark.css')|}];
 
-[@bs.module "./registerServiceWorker"] external register_service_worker : unit => unit = "default";
+/* [@bs.module "./registerServiceWorker"] external register_service_worker : unit => unit = "default"; */
 
 ReactDOMRe.renderToElementWithId(<Shell />, "root");
 
-register_service_worker();
+/* register_service_worker(); */
