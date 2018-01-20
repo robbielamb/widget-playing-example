@@ -4,7 +4,6 @@
     "src"
   ],
   "bs-dependencies": [
-    "bs-director",
     "reason-react",
     "bs-jest",
     "widget-playing"

@@ -1,87 +1,91 @@
 open WidgetPlaying;
 
-type state = {
-  currentRoute: Routes.t,
-  router: option(DirectorRe.t)
-};
+type state = {currentRoute: Routes.t};
 
 type action =
   | SetRoute(Routes.t)
-  | SetRouter(DirectorRe.t)
   | Open
   | Close;
 
-let navTo = (router, route, event, _self) => {
+let navTo = (route, event, _self) => {
   ReactEventRe.Mouse.preventDefault(event);
-  Navigate._to(router, route)
+  Navigate._to(route);
 };
 
-let navNav = (handle, router, currentRoute, routeTo, name) => {
+let navNav = (handle, currentRoute, routeTo, name) => {
   let href = Navigate.pathFor(routeTo);
   let disabled = currentRoute === routeTo;
-  let navTo = navTo(router, routeTo);
+  let navTo = navTo(routeTo);
   let el =
     <Bootstrap.Nav.Link href disabled onClick=(handle(navTo))>
       (ReasonReact.stringToElement(name))
     </Bootstrap.Nav.Link>;
-  el
+  el;
 };
 
 let component = ReasonReact.reducerComponent("Shell");
 
-let make = (_children) => {
+let make = _children => {
   ...component,
-  initialState: () => {currentRoute: Routes.AlertExampleRoute, router: None},
-  didMount: (self) => {
-    let router = Router.router((x) => self.send(SetRoute(x)));
-    /* (self.reduce (fun () => (SetRouter router))(); */
-    DirectorRe.configure(router, {"html5history": true});
-    DirectorRe.init(router, "/alert");
-    ReasonReact.Update({...self.state, router: Some(router)})
+  initialState: () => {currentRoute: ( Router.currentPath() |> Router.pathHandler)},
+  didMount: _self => {
+    ReasonReact.NoUpdate
   },
-  reducer: (action, state) =>
+  subscriptions: self => [
+    Sub(
+      () =>
+        ReasonReact.Router.watchUrl(url => {
+          let route = Router.urlHandler(url);
+          self.send(SetRoute(route));
+        }),
+      ReasonReact.Router.unwatchUrl
+    )
+  ],
+  reducer: (action, _state) =>
     switch action {
-    | SetRoute(route) => ReasonReact.Update({...state, currentRoute: route})
-    | SetRouter(router) => ReasonReact.Update({...state, router: Some(router)})
+    | SetRoute(route) => ReasonReact.Update({currentRoute: route})
     | _ => ReasonReact.NoUpdate
     },
-  render: (self: ReasonReact.self(state, ReasonReact.noRetainedProps, action)) =>
-    switch self.state.router {
-    | None => ReasonReact.nullElement /* Loading..... */
-    | Some(router) =>
-      let element = Router.elementForRoute(self.state.currentRoute);
-      let navTo = navNav(self.handle, router, self.state.currentRoute);
-      <div>
-        <Bootstrap.Navbar light=false color=Bootstrap.Colors.Background.Dark>
-          <Bootstrap.Navbar.Brand>
-            (ReasonReact.stringToElement("Widget Play"))
-          </Bootstrap.Navbar.Brand>
-        </Bootstrap.Navbar>
-        <Bootstrap.Layout.Container>
-          <Bootstrap.Layout.Row>
-            <Bootstrap.Layout.Col> element </Bootstrap.Layout.Col>
-            <Bootstrap.Layout.Col
-              md=(Bootstrap.Layout.Col.shape(~size=Bootstrap.Layout.ColSizes.Size(2), ()))>
-              <p> (ReasonReact.stringToElement("Select Example")) </p>
-              <Bootstrap.Nav vertical=true>
-                <Bootstrap.Nav.Item>
-                  (navTo(Routes.AlertExampleRoute, "Alerts"))
-                  (navTo(Routes.BadgesExampleRoute, "Badges"))
-                  (navTo(Routes.BreadcrumbExampleRoute, "Breadcrumbs"))
-                  (navTo(Routes.ButtonExampleRoute, "Buttons"))
-                  (navTo(Routes.CollapseExampleRoute, "Collapse"))
-                  (navTo(Routes.DropdownExampleRoute, "Dropdown"))
-                  (navTo(Routes.FormExampleRoute, "Forms"))
-                  (navTo(Routes.ModalExampleRoute, "Modals"))
-                  (navTo(Routes.PaginationExampleRoute, "Pagination"))
-                  (navTo(Routes.ProgressExampleRoute, "Progress Bars"))
-                  (navTo(Routes.TableExampleRoute, "Tables"))
-                  (navTo(Routes.TabExampleRoute, "Tabs"))
-                </Bootstrap.Nav.Item>
-              </Bootstrap.Nav>
-            </Bootstrap.Layout.Col>
-          </Bootstrap.Layout.Row>
-        </Bootstrap.Layout.Container>
-      </div>
-    }
+  render:
+    (self: ReasonReact.self(state, ReasonReact.noRetainedProps, action)) => {
+    let element = Router.elementForRoute(self.state.currentRoute);
+    let navTo = navNav(self.handle, self.state.currentRoute);
+    <div>
+      <Bootstrap.Navbar light=false color=Bootstrap.Colors.Background.Dark>
+        <Bootstrap.Navbar.Brand>
+          (ReasonReact.stringToElement("Widget Play"))
+        </Bootstrap.Navbar.Brand>
+      </Bootstrap.Navbar>
+      <Bootstrap.Layout.Container>
+        <Bootstrap.Layout.Row>
+          <Bootstrap.Layout.Col> element </Bootstrap.Layout.Col>
+          <Bootstrap.Layout.Col
+            md=(
+              Bootstrap.Layout.Col.shape(
+                ~size=Bootstrap.Layout.ColSizes.Size(2),
+                ()
+              )
+            )>
+            <p> (ReasonReact.stringToElement("Select Example")) </p>
+            <Bootstrap.Nav vertical=true>
+              <Bootstrap.Nav.Item>
+                (navTo(Routes.AlertExampleRoute, "Alerts"))
+                (navTo(Routes.BadgesExampleRoute, "Badges"))
+                (navTo(Routes.BreadcrumbExampleRoute, "Breadcrumbs"))
+                (navTo(Routes.ButtonExampleRoute, "Buttons"))
+                (navTo(Routes.CollapseExampleRoute, "Collapse"))
+                (navTo(Routes.DropdownExampleRoute, "Dropdown"))
+                (navTo(Routes.FormExampleRoute, "Forms"))
+                (navTo(Routes.ModalExampleRoute, "Modals"))
+                (navTo(Routes.PaginationExampleRoute, "Pagination"))
+                (navTo(Routes.ProgressExampleRoute, "Progress Bars"))
+                (navTo(Routes.TableExampleRoute, "Tables"))
+                (navTo(Routes.TabExampleRoute, "Tabs"))
+              </Bootstrap.Nav.Item>
+            </Bootstrap.Nav>
+          </Bootstrap.Layout.Col>
+        </Bootstrap.Layout.Row>
+      </Bootstrap.Layout.Container>
+    </div>;
+  }
 };

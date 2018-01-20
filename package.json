@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
-    "bs-director": "^0.0.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-fast-highlight": "^2.2.0",

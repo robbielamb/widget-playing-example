@@ -10,4 +10,5 @@ type t =
   | PaginationExampleRoute
   | ProgressExampleRoute
   | TableExampleRoute
-  | TabExampleRoute;
+  | TabExampleRoute
+  | NotFound;

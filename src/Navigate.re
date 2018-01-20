@@ -12,9 +12,10 @@ let pathFor = (route) =>
   | Routes.ProgressExampleRoute => "/progress"
   | Routes.TableExampleRoute => "/tables"
   | Routes.TabExampleRoute => "/tabs"
+  | Routes.NotFound => "/notFound"
   };
 
-let _to = (router, route) => {
+let _to = (route) => {
   let path = pathFor(route);
-  DirectorRe.setRoute(router, path)
+  ReasonReact.Router.push(path);
 };
