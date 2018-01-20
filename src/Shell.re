@@ -33,7 +33,7 @@ let make = (_children) => {
   ...component,
   initialState: () => {currentRoute: Routes.AlertExampleRoute, router: None},
   didMount: (self) => {
-    let router = Router.router((x) => self.reduce(() => SetRoute(x), ()));
+    let router = Router.router((x) => self.send(SetRoute(x)));
     /* (self.reduce (fun () => (SetRouter router))(); */
     DirectorRe.configure(router, {"html5history": true});
     DirectorRe.init(router, "/alert");

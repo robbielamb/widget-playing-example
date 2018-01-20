@@ -20,17 +20,17 @@ let make = (_children) => {
     switch action {
     | Toggle => ReasonReact.Update(! state)
     },
-  render: ({state, reduce}) =>
+  render: ({state, send}) =>
     <Examples.Example title="Modal">
-      <Button color=Button.Color.Danger onClick=(reduce(toggle))> (se("Launch Modal")) </Button>
+      <Button color=Button.Color.Danger onClick=(_event => send(Toggle))> (se("Launch Modal")) </Button>
       <Modal isOpen=state>
-        <Modal.Header toggle=(reduce(toggle))> (se("Modal Header")) </Modal.Header>
+        <Modal.Header toggle=(_event => send(Toggle))> (se("Modal Header")) </Modal.Header>
         <Modal.Body> (se("This is the modal body where I can put stuff")) </Modal.Body>
         <Modal.Footer>
-          <Button color=Button.Color.Primary onClick=(reduce(toggle))>
+          <Button color=Button.Color.Primary onClick=(_event => send(Toggle))>
             (se("Do Something"))
           </Button>
-          <Button color=Button.Color.Secondary onClick=(reduce(toggle))> (se("Cancel")) </Button>
+          <Button color=Button.Color.Secondary onClick=(_event => send(Toggle))> (se("Cancel")) </Button>
         </Modal.Footer>
       </Modal>
       (Examples.exampleHighlight(code))

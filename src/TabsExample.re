@@ -19,7 +19,7 @@ let make = (_children) => {
     switch action {
     | SwitchTab(newTab) => ReasonReact.Update({activeTab: newTab})
     },
-  render: ({state, reduce}) => {
+  render: ({state, send}) => {
     let panels = [|
       Tab.Pane.create(~tabId=Tab1, se("Something here")),
       Tab.Pane.create(~tabId=Tab2, se("Something else"))
@@ -29,13 +29,13 @@ let make = (_children) => {
         <Nav tabs=true>
           <Nav.Item>
             <Nav.Link
-              active=(state.activeTab == Tab1) onClick=(reduce((_) => SwitchTab(Tab1)))>
+              active=(state.activeTab == Tab1) onClick=(_event => send(SwitchTab(Tab1)))>
               (se("Item 1"))
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link 
-              active=(state.activeTab == Tab2) onClick=(reduce((_) => SwitchTab(Tab2)))>
+              active=(state.activeTab == Tab2) onClick=(_event => send(SwitchTab(Tab2)))>
               (se("Item 2"))
             </Nav.Link>
           </Nav.Item>

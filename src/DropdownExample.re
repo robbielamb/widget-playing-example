@@ -15,7 +15,7 @@ let component = ReasonReact.reducerComponent("DropdownExample");
 let toggle =
     (self: ReasonReact.self(state, ReasonReact.noRetainedProps, actions), ()) => {
   Js.log("toggling");
-  self.reduce((_) => Toggle, ());
+  self.send(Toggle);
 };
 
 let make = _children => {

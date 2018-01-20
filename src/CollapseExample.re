@@ -28,16 +28,16 @@ module Collapser = {
       | Opened => ReasonReact.Update({...state, status: "Open"})
       | Closed => ReasonReact.Update({...state, status: "Closed"})
       },
-    render: ({state, reduce}) =>
+    render: ({state, send}) =>
       <div>
-        <Button onClick=(reduce((_) => Toggle)) color=Button.Color.Primary>
+        <Button onClick=(_event => send(Toggle)) color=Button.Color.Primary>
           (se("Collapse"))
         </Button>
         <p> (se(state.status)) </p>
         <Collapse
           isOpen=state.isOpen
-          onOpened=(reduce((_) => Opened))
-          onClosed=(reduce((_) => Closed))>
+          onOpened=(_event => send(Opened))
+          onClosed=(_event => send(Closed))>
           <Card>
             <Card.Header> (se("This is the card header")) </Card.Header>
             <Card.Body>
