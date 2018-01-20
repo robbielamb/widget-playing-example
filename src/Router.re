@@ -21,12 +21,12 @@ let elementForRoute = (route) =>
   | Routes.BadgesExampleRoute => <BadgesExample />
   | Routes.BreadcrumbExampleRoute => <BreadcrumbExample />
   | Routes.ButtonExampleRoute => <ButtonExample />
-  | Routes.CollapseExampleRoute => <Examples.CollapseExample />
-  | Routes.DropdownExampleRoute => <Examples.DropdownExample />
-  | Routes.FormExampleRoute => <Examples.FormExample />
-  | Routes.ModalExampleRoute => <Examples.ModalExample />
-  | Routes.PaginationExampleRoute => <Examples.PaginationExample />
-  | Routes.ProgressExampleRoute => <Examples.ProgressExample />
-  | Routes.TableExampleRoute => <Examples.TableExample />
-  | Routes.TabExampleRoute => <Examples.TabsExample />
+  | Routes.CollapseExampleRoute => <CollapseExample />
+  | Routes.DropdownExampleRoute => <DropdownExample />
+  | Routes.FormExampleRoute => <FormsExample />
+  | Routes.ModalExampleRoute => <ModalExample />
+  | Routes.PaginationExampleRoute => <PaginationExample />
+  | Routes.ProgressExampleRoute => <ProgressExample />
+  | Routes.TableExampleRoute => <TableExample />
+  | Routes.TabExampleRoute => <TabsExample />
   };

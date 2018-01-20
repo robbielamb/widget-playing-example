@@ -1,8 +1,7 @@
-open WidgetPlaying;
-
 include WidgetPlaying.Bootstrap;
 
-let code: string = [%bs.raw {|require('./BreadcrumbExample.re')|}];
+let code: string =
+  [%bs.raw {|require('./BreadcrumbExample.re')|}] |> Examples.prepCode;
 
 let se = ReasonReact.stringToElement;
 
@@ -12,15 +11,15 @@ let make = _children => {
   ...component,
   render: _self =>
     <Examples.Example title="Breadcrumbs">
-      <Bootstrap.BreadCrumb>
-        <Bootstrap.BreadCrumb.Item> (se("home")) </Bootstrap.BreadCrumb.Item>
-      </Bootstrap.BreadCrumb>
-      <Bootstrap.BreadCrumb>
-        <Bootstrap.BreadCrumb.Item> (se("home")) </Bootstrap.BreadCrumb.Item>
-        <Bootstrap.BreadCrumb.Item active=true>
+      <BreadCrumb>
+        <BreadCrumb.Item> (se("home")) </BreadCrumb.Item>
+      </BreadCrumb>
+      <BreadCrumb>
+        <BreadCrumb.Item> (se("home")) </BreadCrumb.Item>
+        <BreadCrumb.Item active=true>
           (se("more"))
-        </Bootstrap.BreadCrumb.Item>
-      </Bootstrap.BreadCrumb>
+        </BreadCrumb.Item>
+      </BreadCrumb>
       (Examples.exampleHighlight(code))
     </Examples.Example>
 };

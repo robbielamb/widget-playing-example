@@ -1,8 +1,7 @@
-open WidgetPlaying;
-
 include WidgetPlaying.Bootstrap;
 
-let code: string = [%bs.raw {|require('./BadgesExample.re')|}];
+let code: string =
+  [%bs.raw {|require('./BadgesExample.re')|}] |> Examples.prepCode;
 
 let se = ReasonReact.stringToElement;
 
@@ -12,9 +11,7 @@ let make = _children => {
   ...component,
   render: _self =>
     <Examples.Example title="Badges">
-      <Bootstrap.Badge color=Bootstrap.Colors.Color.Primary>
-        (se("Default"))
-      </Bootstrap.Badge>
+      <Badge color=Colors.Color.Primary> (se("Default")) </Badge>
       (Examples.exampleHighlight(code))
     </Examples.Example>
 };

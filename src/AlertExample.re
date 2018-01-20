@@ -1,8 +1,7 @@
-open WidgetPlaying;
-
 include WidgetPlaying.Bootstrap;
 
-let code: string = [%bs.raw {|require('./AlertExample.re')|}];
+let code: string =
+  [%bs.raw {|require('./AlertExample.re')|}] |> Examples.prepCode;
 
 let se = ReasonReact.stringToElement;
 
@@ -22,12 +21,12 @@ let make = (~message, _children) => {
   ...component,
   render: _self =>
     <Examples.Example title="Alerts">
-      <Bootstrap.Alert.Auto color=Bootstrap.Colors.Color.Warning>
+      <Alert.Auto color=Colors.Color.Warning>
         <Alert.Heading>
           (ReasonReact.stringToElement("Success"))
         </Alert.Heading>
         <p> (ReasonReact.stringToElement(message)) </p>
-      </Bootstrap.Alert.Auto>
+      </Alert.Auto>
       (Examples.highlight(code))
     </Examples.Example>
 };
